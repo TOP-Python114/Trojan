@@ -20,6 +20,7 @@ def execution_func_nanosecond(func):
         return func
     return wrapper
 
+
 @execution_func_nanosecond
 @execution_func_second
 def func_sum(a, b):
