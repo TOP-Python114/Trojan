@@ -20,11 +20,13 @@ def execution_func_nanosecond(func):
         return func
     return wrapper
 
+
 @execution_func_nanosecond
 @execution_func_second
 def func_sum(a, b):
     return a + b
 func_sum(8, 4)
+
 
 # stdout:
 # Время выполнения функции составило 1.00000761449337e-06 секунд

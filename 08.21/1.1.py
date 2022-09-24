@@ -1,5 +1,15 @@
 from random import choice
 
+def mix_card_deck(deck):
+    shuffled_deck = []
+
+    while deck:
+        random_card = choice(deck)
+        deck.remove(random_card)
+        shuffled_deck.append(random_card)
+        yield random_card
+
+
 print("Card deck:")
 suit = ['chervi', 'bubny', 'piki', 'kresti']
 
@@ -11,18 +21,11 @@ for j in suit:
         print(next(card_iter))
 
 print("Shuffled deck of cards:")
-def mix_card_deck(deck):
-    shuffled_deck = []
-
-    while deck:
-        random_card = choice(deck)
-        deck.remove(random_card)
-        shuffled_deck.append(random_card)
-        yield random_card
-
 for card in mix_card_deck(card_deck):
     print(card)
 
+
+# stdout:
 '''Card deck:
 (1, 'chervi')
 (2, 'chervi')
