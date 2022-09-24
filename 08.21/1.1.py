@@ -1,11 +1,17 @@
+from typing import Generator
 from random import choice
 
-def mix_card_deck(deck):
+
+# ИСПОЛЬЗОВАТЬ: типы параметров и возвращаемое значение должны быть аннотированы
+# ДОБАВИТЬ: документацию для функции: строка документации начинается с глагола и в одно предложение отвечает на вопрос "что делает функция?"
+def mix_card_deck(deck: list) -> Generator:
+    # УДАЛИТЬ: вам не нужен этот список в теле функции генератора — это нивелирует все преимущества генератора, относящиеся к работе с памятью
     shuffled_deck = []
 
     while deck:
         random_card = choice(deck)
         deck.remove(random_card)
+        # УДАЛИТЬ: обновление списка
         shuffled_deck.append(random_card)
         yield random_card
 
@@ -132,3 +138,6 @@ Shuffled deck of cards:
 (5, 'bubny')
 (11, 'kresti')
 (7, 'bubny')'''
+
+
+# ИТОГ: хорошо — 4/5
