@@ -21,17 +21,17 @@ class FactoryFilm:
     def __init__(self):
         self.id = 0
 
-    def create_person(self, name, year, genre, country, obj_producer):
+    def create_cardfilm(self, name, year, genre, country, obj_producer):
         self.id += 1
         return FilmCard(self.id, name, year, genre, country, obj_producer)
 
 
-pf = FactoryFilm()
-film1 = pf.create_person('"Невидимый гость"', 2016, 'триллер', 'Испания', 'Ориол Паоло')
-film2 = pf.create_person('"Лучшее предложение"', 2012, 'драма', 'Италия', 'Джузеппе Торнаторе')
-film3 = pf.create_person('"Искупление"', 2007, 'драма', 'Великобритания', 'Джо Райт')
-film4 = pf.create_person('"Гнев человеческий"', 2021, 'боевик', 'Великобритания', 'Гай Ричи')
-film5 = pf.create_person('"Джентельмены"', 2019, 'комедия', 'Великобритания', 'Гай Ричи')
+ff = FactoryFilm()
+film1 = ff.create_cardfilm('"Невидимый гость"', 2016, 'триллер', 'Испания', 'Ориол Паоло')
+film2 = ff.create_cardfilm('"Лучшее предложение"', 2012, 'драма', 'Италия', 'Джузеппе Торнаторе')
+film3 = ff.create_cardfilm('"Искупление"', 2007, 'драма', 'Великобритания', 'Джо Райт')
+film4 = ff.create_cardfilm('"Гнев человеческий"', 2021, 'боевик', 'Великобритания', 'Гай Ричи')
+film5 = ff.create_cardfilm('"Джентельмены"', 2019, 'комедия', 'Великобритания', 'Гай Ричи')
 
 print(film1, film2, film3, film4, film5, sep='\n', end='\n\n')
 
