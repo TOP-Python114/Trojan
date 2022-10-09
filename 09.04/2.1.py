@@ -1,9 +1,11 @@
 
-class Producer:
+class Director:
     def __init__(self, fullname):
         self.fullname = fullname
+
     def __str__(self):
         return self.fullname
+
 
 class FilmCard:
     def __init__(self, id_, name, year, genre, country, fullname):
@@ -11,19 +13,25 @@ class FilmCard:
         self.year = year
         self.genre = genre
         self.country = country
-        self.obj_producer = Producer(fullname)
+        self.director = Director(fullname)
         self.id = id_
 
     def __str__(self):
-        return f"Информация о фильме №{self.id}:\n Название: {self.name}\n Год производства: {self.year}\n Жанр: {self.genre}\n Страна: {self.country}\n Режиссер: {self.obj_producer}"
+        return f"Информация о фильме №{self.id}:\n" \
+               f" Название: {self.name}\n" \
+               f" Год производства: {self.year}\n" \
+               f" Жанр: {self.genre}\n" \
+               f" Страна: {self.country}\n" \
+               f" Режиссер: {self.director}"
+
 
 class FactoryFilm:
     def __init__(self):
         self.id = 0
 
-    def create_cardfilm(self, name, year, genre, country, obj_producer):
+    def create_cardfilm(self, name, year, genre, country, director):
         self.id += 1
-        return FilmCard(self.id, name, year, genre, country, obj_producer)
+        return FilmCard(self.id, name, year, genre, country, director)
 
 
 ff = FactoryFilm()
@@ -34,6 +42,7 @@ film4 = ff.create_cardfilm('"Гнев человеческий"', 2021, 'бое�
 film5 = ff.create_cardfilm('"Джентельмены"', 2019, 'комедия', 'Великобритания', 'Гай Ричи')
 
 print(film1, film2, film3, film4, film5, sep='\n', end='\n\n')
+
 
 # stdout:
 """
