@@ -1,5 +1,7 @@
 
+# ДОБАВИТЬ: документацию класса
 class Director:
+    # ДОБАВИТЬ: аннотации типов
     def __init__(self, fullname):
         self.fullname = fullname
 
@@ -7,14 +9,18 @@ class Director:
         return self.fullname
 
 
+# ДОБАВИТЬ: документацию класса
 class FilmCard:
+    # ДОБАВИТЬ: аннотации типов
     def __init__(self, id_, name, year, genre, country, fullname):
         self.name = name
         self.year = year
         self.genre = genre
         self.country = country
+        # ИСПРАВИТЬ: стоит перенести создание экземпляра Director в код фабрики
         self.director = Director(fullname)
         self.id = id_
+        # ДОБАВИТЬ: хотелось бы больше полей — включая следующий/предыдущий фильм во франшизе
 
     def __str__(self):
         return f"Информация о фильме №{self.id}:\n" \
@@ -25,10 +31,13 @@ class FilmCard:
                f" Режиссер: {self.director}"
 
 
+# ДОБАВИТЬ: документацию класса
 class FactoryFilm:
     def __init__(self):
+        # КОММЕНТАРИЙ: помещение этого атрибута в экземпляр означает, что можно будет создать ещё один экземпляр фабрики (например, ff2), и карточки, созданные с его помощью, будут нумероваться с нуля — это то, что необходимо понимать и иметь в виду
         self.id = 0
 
+    # ДОБАВИТЬ: аннотации типов
     def create_cardfilm(self, name, year, genre, country, director):
         self.id += 1
         return FilmCard(self.id, name, year, genre, country, director)
@@ -77,3 +86,9 @@ print(film1, film2, film3, film4, film5, sep='\n', end='\n\n')
  Страна: Великобритания
  Режиссер: Гай Ричи
  """
+
+
+# ИТОГ: очень хорошо, ещё бы не игнорировали часть задания по документации и аннотациям — 10/12
+
+
+# СДЕЛАТЬ: жду остальные задачи
