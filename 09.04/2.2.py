@@ -175,8 +175,8 @@ def create_factory(course_name) -> AbstractDishFactory:
 if __name__ == '__main__':
     course_name = "russia"
     nc = create_factory(course_name)
-    app = FactoryDish(nc)
-    app.create_menu()
+    fd = FactoryDish(nc)
+    fd.create_menu()
 
 # stdout:
 """
