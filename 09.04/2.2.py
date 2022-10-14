@@ -65,9 +65,11 @@ class AbstractDishFactory(ABC):
     def serving_first_course(self):
         pass
 
+    @abstractmethod
     def serving_second_course(self):
         pass
 
+    @abstractmethod
     def serving_snack(self):
         pass
 
