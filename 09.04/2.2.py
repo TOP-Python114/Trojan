@@ -1,14 +1,25 @@
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from pathlib import Path
+from sys import path
+from json import load as jload
 
-"""Абстрактный класс, реализующий описание блюда"""
+
+# ИСПОЛЬЗОВАТЬ: когда данных много, то можно не стесняться выносить их в отдельный файл
+db_path = Path(path[0]) / 'dishes.json'
+
+
+# ИСПОЛЬЗОВАТЬ: есть такая классная штука: дата-классы — прям как для этого случая придуманы
+@dataclass
 class Dish(ABC):
-    def __init__(self, dish_name: str, specification: str, ingredient_list: str, weight: int, price: float, country: str):
-        self.dish_name = dish_name
-        self.specification = specification
-        self.ingredient_list = ingredient_list
-        self.weight = weight
-        self.price = price
-        self.country = country
+    # ИСПОЛЬЗОВАТЬ: литерал со строкой документации должен помещать непосредственно под заголовком класса/метода/функции — иначе этот литерал не будет записан в атрибут __doc__ класса/метода/функции
+    """Абстрактный класс, реализующий описание блюда"""
+    dish_name: str
+    specification: str
+    ingredient_list: str
+    weight: int
+    price: float
+    country: str
 
     @abstractmethod
     def dish(self):
@@ -22,45 +33,49 @@ class Dish(ABC):
                f"Цена: {self.price}\n" \
                f"Традиционная кухня: {self.country}"
 
-"""Классы, реализующие описание конкретного блюда"""
+
+# КОММЕНТАРИЙ: а комментарии, тем более короткие, пишите как комментарии, не как литералы — первые игнорируются интерпретатором, а вторые вычисляются
+# Классы, реализующие описание конкретного блюда
 class CabbageSoup(Dish):
     def dish(self):
-        print('Заказываю Щи')
+        print('Закажите Щи')
 
 class Minestrone(Dish):
     def dish(self):
-        print('Заказываю Минестроне')
+        print('Закажите Минестроне')
 
 class MisoSoup(Dish):
     def dish(self):
-        print('Заказываю Мисо суп')
+        print('Закажите Мисо суп')
 
-class Sushi_Tuna(Dish):
+# ИСПОЛЬЗОВАТЬ: для имён классов используйте регистр CamelCase, а не Title_Snake_Case
+class SushiTuna(Dish):
     def dish(self):
-        print('Заказываю Суши Туна')
+        print('Закажите Суши Туна')
 
 class Pepperonate(Dish):
     def dish(self):
-        print('Заказываю Пеппероната')
+        print('Закажите Пеппероната')
 
 class Meatballs(Dish):
     def dish(self):
-        print('Заказываю Тефтели')
+        print('Закажите Тефтели')
 
 class Vinaigrette(Dish):
     def dish(self):
-        print('Заказываю Винегрет')
+        print('Закажите Винегрет')
 
 class Aranchini(Dish):
     def dish(self):
-        print('Заказываю Аранчини')
+        print('Закажите Аранчини')
 
 class Konji(Dish):
     def dish(self):
-        print('Заказываю Конджи')
+        print('Закажите Конджи')
 
-"""Абстрактный класс, реализующий набор ресторанных блюд"""
+
 class AbstractDishFactory(ABC):
+    """Абстрактный класс, реализующий набор ресторанных блюд"""
     @abstractmethod
     def serving_first_course(self):
         pass
@@ -73,86 +88,68 @@ class AbstractDishFactory(ABC):
     def serving_snack(self):
         pass
 
-"""Класс, реализующий блюда русской кухни"""
+
 class RussianCuisineFactory(AbstractDishFactory):
+    """Класс, реализующий блюда русской кухни"""
+    # ИСПОЛЬЗОВАТЬ: вот так, пожалуй, будет удобнее
+    def __init__(self):
+        with open(db_path, encoding='utf-8') as filein:
+            dishes = jload(filein)
+        self.first = dishes['CabbageSoup']
+        self.second = dishes['Meatballs']
+        self.snack = dishes['Vinaigrette']
+
     def serving_first_course(self):
-        return CabbageSoup('Щи',
-                           'горячее блюдо на основе квашеной или свежей капусты',
-                           'курица, капуста белокочанная, картофель, морковь, лук репчатый',
-                           250,
-                           160,
-                           'русская')
+        return CabbageSoup(**self.first)
 
     def serving_second_course(self):
-        return Meatballs('Тефтели',
-                         'блюдо из мясного фарша с добавлением каких-либо круп в виде шариков',
-                         'фарш мясной, рис, лук репчатый, томат-паста, сметана, соль, перец',
-                         150,
-                         200,
-                         'русская'
-                         )
-    def  serving_snack(self):
-        return Vinaigrette('Винегрет',
-                            'салат из отварных овощей',
-                            'свекла, морковь, картофель, лук, капуста, горошек, огурец, растительное масло, соль',
-                            100,
-                            90,
-                            'русская')
+        return Meatballs(**self.second)
 
-"""Класс, реализующий блюда азиатской кухни"""
+    def serving_snack(self):
+        return Vinaigrette(**self.snack)
+
+
 class AsianCuisineFactory(AbstractDishFactory):
+    """Класс, реализующий блюда азиатской кухни"""
+    def __init__(self):
+        with open(db_path, encoding='utf-8') as filein:
+            dishes = jload(filein)
+        self.first = dishes['MisoSoup']
+        self.second = dishes['SushiTuna']
+        self.snack = dishes['Konji']
+
     def serving_first_course(self):
-        return MisoSoup('Мисо суп',
-                        'традиционный японский суп, состоящий из бульона даси, в который смешивается размягченная паста мисо',
-                        'вакаме сушеные, мисо паста, даши, тофу, зеленый лук',
-                        200,
-                        180,
-                        'азиатская')
+        return MisoSoup(**self.first)
 
     def serving_second_course(self):
-        return Sushi_Tuna('Суши Туна',
-                        'блюдо традиционной японской кухни, приготовленное из риса с уксусной приправой и различных морепродуктов, а также других ингредиентов',
-                        'рис, нори, тунец',
-                        40,
-                        80,
-                        'азиатская')
+        return SushiTuna(**self.second)
 
     def serving_snack(self):
-        return Konji('Конджи',
-                        'китайский гарнир из риса, по консистенции - что-то между супом и пудингом.',
-                        'рис, вода',
-                        100,
-                        80,
-                        'азиатская')
+        return Konji(**self.snack)
 
-"""Класс, реализующий блюда итальянской кухни"""
+
 class ItalianCuisineFactory(AbstractDishFactory):
+    """Класс, реализующий блюда итальянской кухни"""
+    def __init__(self):
+        with open(db_path, encoding='utf-8') as filein:
+            dishes = jload(filein)
+        self.first = dishes['Minestrone']
+        self.second = dishes['Pepperonate']
+        self.snack = dishes['Aranchini']
+
     def serving_first_course(self):
-        return Minestrone('Минестроне',
-                            'суп из овощей, в составе которого также могут быть макаронные изделия или рис',
-                            'помидоры, лук репчатый, чеснок, стебель сельдерея, морковь, фасоль, бульон куриный, макароны',
-                            200,
-                            200,
-                            'итальянская')
+        return Minestrone(**self.first)
 
     def serving_second_course(self):
-        return Pepperonate('Пеппероната',
-                            'овощное блюдо из сладкого перца, который тушится вместе с луком, чесноком и томатами',
-                            'сладкий перец, помидоры, лук, чеснок, базилик, соль',
-                            150,
-                            180,
-                            'итальянская')
+        return Pepperonate(**self.second)
 
     def serving_snack(self):
-        return Aranchini('Аранчини',
-                        'обжаренные рисовые шарики, фаршированные мясным рагу, моццареллой и зелёным горошком',
-                        'рис, сыр, яйцо, соль, перец, панировочные сухари',
-                        100,
-                        200,
-                        'итальянская')
+        return Aranchini(**self.snack)
 
-"""Фабрика блюд"""
+
+# КОММЕНТАРИЙ: здесь уже не фабрика — это управляющий класс, который вероятнее всего будет вообще находиться в другом модуле — код верхнего уровня, иначе говоря
 class FactoryDish:
+    """Фабрика блюд"""
     def __init__(self, factory: AbstractDishFactory):
         self.fac = factory
 
@@ -164,19 +161,22 @@ class FactoryDish:
         second.dish()
         snack.dish()
 
-def create_factory(course_name) -> AbstractDishFactory:
+
+def create_factory(cuisine: str) -> AbstractDishFactory:
     factory_dict = {
         "russia": RussianCuisineFactory,
         "asia": AsianCuisineFactory,
         "italy": ItalianCuisineFactory
     }
-    return factory_dict[course_name]()
+    return factory_dict[cuisine]()
+
 
 if __name__ == '__main__':
-    course_name = "russia"
-    nc = create_factory(course_name)
+    answer = input('Какая кухня вас интересует? [russia/asia/italy]\n')
+    nc = create_factory(answer)
     fd = FactoryDish(nc)
     fd.create_menu()
+
 
 # stdout:
 """
@@ -184,3 +184,9 @@ if __name__ == '__main__':
 Заказываю Тефтели
 Заказываю Винегрет
 """
+
+
+# ИТОГ: отлично — 11/12
+
+
+# СДЕЛАТЬ: всё ещё жду первую часть задания =)
