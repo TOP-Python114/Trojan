@@ -72,7 +72,6 @@ class MIDINote(Note):
                f"Атака звука: {self.velocity}"
 
 
-
 score_note_d = ScoreNote(
     pitch=Pitch.D,
     octave=Octave.LINE_2,
