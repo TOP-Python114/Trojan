@@ -102,6 +102,7 @@ print(midi_note_e, '\n')
 print('Клонированная нота в MIDI протоколе с изменениями:')
 print(midi_note_d)
 
+
 # stdout:
 """
 Нота в партитуре:
