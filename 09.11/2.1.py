@@ -42,7 +42,7 @@ class AdapterWordCounter:
 
 text = 'Вот дом, который построил Джек ' \
        'а это пшеница, которая в темном чулане хранится, ' \
-       'в доме, который построил Джек %%'
+       'в доме, который построил Джек %% №'
 
 parser_text = TextParser(text)
 adapter = AdapterWordCounter()
