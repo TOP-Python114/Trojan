@@ -1,5 +1,7 @@
 from copy import deepcopy
+
 from constants import *
+
 
 class Note:
     """Музыкальная нота с возможностью копирования."""
@@ -30,8 +32,10 @@ class Note:
     def clone(self, **params):
         """Создаёт новый экземпляр ноты с теми же параметрами."""
         copy_object = deepcopy(self)
+        # ОТВЕТИТЬ: вам понятно, что именно происходит в этой строке?
         copy_object.__dict__.update(params)
         return copy_object
+
 
 class ScoreNote(Note):
     """Изображение музыкальной ноты в партитуре."""
@@ -134,3 +138,9 @@ print(midi_note_d)
 Продолжительность: 8
 Атака звука: 110
 """
+
+
+# ИТОГ: очень хорошо — 12/12
+
+
+# СДЕЛАТЬ: вторую часть задания
