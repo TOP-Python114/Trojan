@@ -81,3 +81,10 @@ msg = MagicSquareGenerator(3)
 magic_sq = msg.generate_magic_square()
 for number in magic_sq:
     print(number)
+
+# stdout:
+"""
+[3, 1, 2]
+[1, 2, 3]
+[2, 3, 1]
+"""
