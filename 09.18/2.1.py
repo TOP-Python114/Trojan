@@ -89,3 +89,13 @@ military_plane = Military(cargo, 100)
 print(military_plane.display_description())
 military_plane.add_objects(67)
 print(military_plane.display_description())
+
+# stdout:
+"""
+Коммерческий самолет перевозит 300 товаров
+Коммерческий самолет перевозит 323 товаров
+Коммерческий самолет перевозит 234 пассажиров
+Коммерческий самолет перевозит 288 пассажиров
+Военный самолет перевозит 100 боеприпасов
+Военный самолет перевозит 167 боеприпасов
+"""
