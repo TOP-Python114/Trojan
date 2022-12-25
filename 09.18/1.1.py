@@ -2,13 +2,14 @@ from random import randint
 
 
 class Generator:
+    # ИСПРАВИТЬ: не "из девяти случайных чисел", а ...?
     """Класс, генерирующий список из девяти случайных чисел"""
     @staticmethod
     def generate(count: int):
         return [randint(1, 9) for _ in range(count)]
 
 class Splitter:
-    """Класс, принимающий двумерный список и разбивает его на все возможные одномерные списки."""
+    """Принимает двумерный список и разбивает его на все возможные одномерные списки."""
     @staticmethod
     def split(array) -> list:
         result = []
@@ -46,7 +47,7 @@ class Splitter:
 
 
 class Verifier:
-    """Класс принимает двумерный список и проверяет, что сумм чисел любого из содержимых списков одинакова."""
+    """Принимает двумерный список и проверяет, что сумма чисел любого из содержимых списков одинакова."""
     @staticmethod
     def verify(arrays) -> bool:
         first = sum(arrays[0])
@@ -71,7 +72,7 @@ class MagicSquareGenerator:
     def generate_magic_square(self):
         """Генерирует магический квадрат"""
         while True:
-            matrix = [self.generator.generate(self.num) for i in range(self.num)]
+            matrix = [self.generator.generate(self.num) for _ in range(self.num)]
             if self.verifier.verify(self.splitter.split(matrix)):
                 return matrix
 
@@ -88,3 +89,6 @@ for number in magic_sq:
 [1, 2, 3]
 [2, 3, 1]
 """
+
+
+# ИТОГ: отлично — 6/6
